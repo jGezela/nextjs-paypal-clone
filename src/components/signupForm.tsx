@@ -106,11 +106,9 @@ export default function SignupForm() {
                 <PopoverContent className="w-auto p-0" align="end">
                   <CustomCalendar
                     mode="single"
-                    captionLayout="dropdown" 
-                    fromYear={new Date().getFullYear() - 100} 
-                    toYear={new Date().getFullYear() - 18}
+                    captionLayout="dropdown"
                     onSelect={field.onChange}
-                    initialFocus
+                    autoFocus
                   />
                 </PopoverContent>
               </Popover>

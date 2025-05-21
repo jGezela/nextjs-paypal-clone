@@ -25,13 +25,9 @@ function CustomCalendar({
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
-        vhidden: "hidden",
-        caption_dropdowns: "flex gap-2 justify-center items-center my-2",
-        month: "flex flex-col gap-2",
-        head_row: "flex",
-        head_cell:
-          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
+        nav: "hidden",
+        weekdays: "hidden",
+        dropdowns: "mb-3 flex justify-center gap-2",
         day: cn(
           buttonVariants({ variant: "ghost" }),
           "size-8 p-0 font-normal aria-selected:opacity-100"
@@ -39,8 +35,8 @@ function CustomCalendar({
         ...classNames,
       }}
       components={{
-        Dropdown: ({ value, onChange, children, name }: DropdownProps) => {
-          const options = React.Children.toArray(children) as React.ReactElement<React.HTMLProps<HTMLOptionElement>>[];
+        Dropdown: ({ value, onChange, options, name }: DropdownProps) => {
+          const resolvedOptions = options || [];
           const selectValue = value !== undefined ? String(value) : undefined;
 
           const handleValueChange = (newValue: string) => {
@@ -62,13 +58,12 @@ function CustomCalendar({
                 <SelectValue placeholder={name === 'months' ? 'Month' : 'Year'} />
               </SelectTrigger>
               <SelectContent>
-                {options.map((optionNode) => {
-                  const optionVal = optionNode.props.value;
-                  const itemValue = String(Array.isArray(optionVal) ? optionVal[0] : optionVal);
+                {resolvedOptions.map((option) => {
+                  const itemValue = String(Array.isArray(option.value) ? option.value[0] : option.value);
 
                   return (
                     <SelectItem key={itemValue} value={itemValue}>
-                      {optionNode.props.children}
+                      {option.label}
                     </SelectItem>
                   );
                 })}

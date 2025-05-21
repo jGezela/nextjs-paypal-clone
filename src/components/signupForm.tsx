@@ -24,16 +24,16 @@ import { CustomCalendar } from "@/components/customCalendar";
 
 import { CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { signupSchema } from "@/lib/schemas/signupSchema";
-import { Calendar } from "./ui/calendar";
 
 export default function SignupForm() {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
-      dateOfBirth: "",
+      dateOfBirth: undefined,
       password: "",
     },
   });
@@ -45,6 +45,32 @@ export default function SignupForm() {
   return (
      <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First name</FormLabel>
+              <FormControl>
+                <Input type="text" className="input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last name</FormLabel>
+              <FormControl>
+                <Input type="text" className="input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -81,8 +107,8 @@ export default function SignupForm() {
                   <CustomCalendar
                     mode="single"
                     captionLayout="dropdown" 
-                    fromYear={2010} 
-                    toYear={2024}
+                    fromYear={new Date().getFullYear() - 100} 
+                    toYear={new Date().getFullYear() - 18}
                     onSelect={field.onChange}
                     initialFocus
                   />
@@ -105,7 +131,7 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-2 btn">Sign in</Button>
+        <Button type="submit" className="mt-2 btn">Sign up</Button>
       </form>
     </Form>
   );

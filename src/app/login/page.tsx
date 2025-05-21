@@ -14,7 +14,7 @@ import LoginForm from "@/components/loginForm";
 
 export default function LoginPage() {
   return (
-    <section className="flex justify-center items-center h-full">
+    <section className="py-5 flex justify-center items-center min-h-full">
       <Card className="mx-3 max-w-[460px] w-full">
         <CardHeader>
           <CardTitle className="flex flex-col justify-center items-center">

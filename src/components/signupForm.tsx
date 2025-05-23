@@ -46,6 +46,7 @@ export default function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof signupSchema>) {
+    console.log(values);
     setIsPending(true);
     const res = await signupAction(values);
 
@@ -55,7 +56,7 @@ export default function SignupForm() {
       router.push("/login");
     } else {     
       setIsPending(false); 
-      toast.error("Something went wrong! Please try again later.", {
+      toast.error(res.error, {
         classNames: {
           toast: '!bg-destructive !text-white !border-0',
         },

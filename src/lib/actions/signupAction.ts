@@ -15,12 +15,18 @@ export async function signupAction(formData: z.infer<typeof signupSchema>) {
     const hashedPassword = await bcrypt.hash(formData.password, 10);
     await db.insert(usersTable).values({
       ...formData,
-      dateOfBirth: formData.dateOfBirth.toISOString().split("T")[0],
+      dateOfBirth: formData.dateOfBirth.toLocaleDateString("en-CA"),
       password: hashedPassword,
     });
     return { success: true };
-  } catch (e) {
+  } catch (e: any) {
     console.error("Signup form error: ", e);
-    return { success: false, error: "Signup failed!" };
+    if (e.constraint === "users_email_unique") {
+      return { success: false, error: "User with this email already exists!" };
+    }
+    return {
+      success: false,
+      error: "Something went wrong! Please try again later.",
+    };
   }
 }

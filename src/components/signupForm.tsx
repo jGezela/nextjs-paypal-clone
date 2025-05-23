@@ -1,6 +1,7 @@
 "use client"
 
 import { z } from "zod";
+import { toast } from "sonner";
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,8 +26,14 @@ import { CustomCalendar } from "@/components/customCalendar";
 import { CalendarIcon } from "lucide-react";
 
 import { signupSchema } from "@/lib/schemas/signupSchema";
+import { signupAction } from "@/lib/actions/signupAction";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -38,8 +45,22 @@ export default function SignupForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signupSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof signupSchema>) {
+    setIsPending(true);
+    const res = await signupAction(values);
+
+    if(res.success) {
+      setIsPending(false);
+      toast("Account was created! You will be redirected to log in.");
+      router.push("/login");
+    } else {     
+      setIsPending(false); 
+      toast.error("Something went wrong! Please try again later.", {
+        classNames: {
+          toast: '!bg-destructive !text-white !border-0',
+        },
+      });
+    }
   }
 
   return (
@@ -129,7 +150,7 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-2 btn">Sign up</Button>
+        <Button type="submit" className="mt-2 btn" disabled={isPending}>Sign up</Button>
       </form>
     </Form>
   );

@@ -20,6 +20,7 @@ export async function signupAction(formData: z.infer<typeof signupSchema>) {
     });
     return { success: true };
   } catch (e) {
+    console.error("Signup form error: ", e);
     return { success: false, error: "Signup failed!" };
   }
 }

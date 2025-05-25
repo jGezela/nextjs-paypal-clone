@@ -1,6 +1,9 @@
 "use client"
 
 import { z } from "zod";
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -18,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { loginSchema } from "@/lib/schemas/loginSchema";
 
 export default function LoginForm() {
+  const [isPending, setIsPending] = useState(false);
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -26,8 +31,30 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    setIsPending(true);
+    const res = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false, 
+    });
+
+    if(!res?.ok) {
+      setIsPending(false);
+      if (res?.error === "CredentialsSignin") {
+        toast.error("Invalid credentials! Check your password or e-mail.", {
+          classNames: {
+            toast: '!bg-destructive !text-white !border-0',
+          },
+        });
+      } else {
+        toast.error("Something went wrong! Please try again later.", {
+          classNames: {
+            toast: '!bg-destructive !text-white !border-0',
+          },
+        });
+      }
+    }
   }
 
   return (
@@ -59,7 +86,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-2 btn">Log in</Button>
+        <Button type="submit" className="mt-2 btn" disabled={isPending}>Log in</Button>
       </form>
     </Form>
   );

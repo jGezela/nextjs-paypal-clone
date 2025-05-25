@@ -18,7 +18,7 @@ export default function SignupPage() {
       <Card className="mx-3 max-w-[460px] w-full">
         <CardHeader>
           <CardTitle className="flex flex-col justify-center items-center">
-            <Image src="/paypal-mark.svg" alt="PayPal logo" width={40} height={40} />
+            <Image src="images/paypal-mark.svg" alt="PayPal logo" width={40} height={40} />
             <h1 className="mt-2 text-2xl font-bold">Sign up</h1>
           </CardTitle>
         </CardHeader>

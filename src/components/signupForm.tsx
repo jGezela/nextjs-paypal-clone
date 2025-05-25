@@ -46,7 +46,6 @@ export default function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof signupSchema>) {
-    console.log(values);
     setIsPending(true);
     const res = await signupAction(values);
 

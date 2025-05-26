@@ -25,32 +25,26 @@ const handler = NextAuth({
           return null;
         }
 
-        const users = await db
+        const existingUser = await db
           .select()
           .from(usersTable)
-          .where(eq(usersTable.email, credentials.email));
-
-        const user = users[0];
-
-        if (!user) {
+          .where(eq(usersTable.email, credentials.email))
+          .limit(1);
+        if (!existingUser[0]) {
           return null;
         }
 
         const isPasswdCorrect = await bcrypt.compare(
           credentials.password,
-          user.password
+          existingUser[0].password
         );
-        if (isPasswdCorrect) {
-          return {
-            id: user.id.toString(),
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            dateOfBirth: user.dateOfBirth,
-          };
+        if (!isPasswdCorrect) {
+          return null;
         }
 
-        return null;
+        return {
+          id: existingUser[0].id.toString(),
+        };
       },
     }),
   ],
@@ -63,10 +57,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return {
-          ...token,
-          id: user.id,
-        };
+        token.id = user.id;
       }
       return token;
     },

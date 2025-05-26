@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -22,6 +23,7 @@ import { loginSchema } from "@/lib/schemas/loginSchema";
 
 export default function LoginForm() {
   const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -36,7 +38,8 @@ export default function LoginForm() {
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
-      redirect: false, 
+      redirect: false,
+      callbackUrl: "/dashboard" 
     });
 
     if(!res?.ok) {
@@ -54,6 +57,9 @@ export default function LoginForm() {
           },
         });
       }
+    } else {
+      toast("Successfuly loged in! You wil be redirected to dashboard.");
+      router.push("/dashboard");
     }
   }
 

@@ -8,6 +8,7 @@ export default function DashboardPage() {
 
   return (
     <section>
+      <h1>Hello World!</h1>
       <Button onClick={() => signOut()}>Sign out</Button>   
     </section>
   );

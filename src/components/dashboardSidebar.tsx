@@ -1,53 +1,54 @@
+import Image from "next/image";
+
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Landmark, BanknoteArrowUp, BanknoteArrowDown, ScrollText } from "lucide-react";
+import SidebarUser from "./sidebarUser";
 
-const items = [
+const sidebarItems = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: Landmark,
   },
   {
-    title: "Inbox",
+    title: "Send money",
     url: "#",
-    icon: Inbox,
+    icon: BanknoteArrowDown,
   },
   {
-    title: "Calendar",
+    title: "Request money",
     url: "#",
-    icon: Calendar,
+    icon: BanknoteArrowUp
   },
   {
-    title: "Search",
+    title: "Account history",
     url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    icon: ScrollText,
   },
 ]
  
 export function DashboardSidebar() {
   return (
-    <Sidebar>
+    <Sidebar className="px-3 pb-3">
+      <SidebarHeader>
+        <Image src="images/paypal-logo.svg" width={140} height={40} alt="PayPal logo" className="mt-3 ml-2" />
+      </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+        <SidebarGroup className="mt-3">
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {sidebarItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
@@ -61,6 +62,9 @@ export function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarUser />
+      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -1,12 +1,11 @@
 import { DashboardSidebar } from "@/components/dashboardSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
  
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="p-5">
       <DashboardSidebar />
       <main>
-        <SidebarTrigger />
         {children}
       </main>
     </SidebarProvider>

@@ -150,7 +150,7 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-2 btn" disabled={isPending}>Sign up</Button>
+        <Button type="submit" className="mt-2 btn w-full" disabled={isPending}>Sign up</Button>
       </form>
     </Form>
   );

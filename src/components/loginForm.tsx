@@ -92,7 +92,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-2 btn" disabled={isPending}>Log in</Button>
+        <Button type="submit" className="mt-2 btn w-full" disabled={isPending}>Log in</Button>
       </form>
     </Form>
   );

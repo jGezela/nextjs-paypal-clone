@@ -31,7 +31,7 @@ export default function LoginPage() {
             <p className="absolute left-[45%] top-[-6px] bg-white w-10 text-center text-gray-600">or</p>
           </div>
           <Link href="/signup" className="w-full">
-            <Button className="btn btn--outline">Sign up</Button>
+            <Button className="btn btn--outline w-full">Sign up</Button>
           </Link>
         </CardFooter>
       </Card>

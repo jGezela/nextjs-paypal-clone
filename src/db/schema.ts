@@ -37,7 +37,7 @@ export const userCardsTable = pgTable("user_cards", {
   cvv: varchar({ length: 3 }).notNull(),
 });
 
-export const userContacts = pgTable("user_contacts", {
+export const userContactsTable = pgTable("user_contacts", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: integer()
     .notNull()
@@ -45,4 +45,19 @@ export const userContacts = pgTable("user_contacts", {
   contactId: integer()
     .notNull()
     .references(() => usersTable.id),
+});
+
+export const userHistoryTable = pgTable("user_history", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  fromUserId: integer()
+    .notNull()
+    .references(() => usersTable.id),
+  toUserId: integer()
+    .notNull()
+    .references(() => usersTable.id),
+  amount: decimal({ precision: 12, scale: 2 }).notNull(),
+  note: varchar({ length: 255 }),
+  type: varchar({ length: 10 }).notNull(),
+  status: varchar({ length: 10 }).notNull(),
+  createdAt: timestamp({ mode: "date" }).notNull().defaultNow(),
 });

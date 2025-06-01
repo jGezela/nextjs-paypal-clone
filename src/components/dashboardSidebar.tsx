@@ -23,7 +23,7 @@ const sidebarItems = [
   },
   {
     title: "Send money",
-    url: "#",
+    url: "/dashboard/send-money",
     icon: BanknoteArrowDown,
   },
   {
@@ -42,7 +42,7 @@ export function DashboardSidebar() {
   return (
     <Sidebar className="px-3 pb-3">
       <SidebarHeader>
-        <Image src="images/paypal-logo.svg" width={140} height={40} alt="PayPal logo" className="mt-3 ml-2" />
+        <Image src="/images/paypal-logo.svg" width={140} height={40} alt="PayPal logo" className="mt-3 ml-2" />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="mt-3">

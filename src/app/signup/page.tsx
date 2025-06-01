@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import SignupForm from "@/components/signupForm";
+import SignupForm from "@/components/forms/signupForm";
 
 export default function SignupPage() {
   return (
@@ -18,7 +18,7 @@ export default function SignupPage() {
       <Card className="mx-3 max-w-[460px] w-full">
         <CardHeader>
           <CardTitle className="flex flex-col justify-center items-center">
-            <Image src="images/paypal-mark.svg" alt="PayPal logo" width={40} height={40} />
+            <Image src="/images/paypal-mark.svg" alt="PayPal logo" width={40} height={40} />
             <h1 className="mt-2 text-2xl font-bold">Sign up</h1>
           </CardTitle>
         </CardHeader>

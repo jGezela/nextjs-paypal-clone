@@ -2,26 +2,24 @@ import { or, and, eq } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 import { getServerSession } from "next-auth";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { userBalanceTable, userHistoryTable, usersTable } from "@/db/schema";
+import { userHistoryTable, usersTable } from "@/db/schema";
 
-import DashBoardBalance from "@/components/dashboard/dashboardBalance";
-import DashBoardHistory from "@/components/dashboard/dashboardHistory";
+import { CustomDataTable } from "@/components/customDataTable";
 
+import {
+  AccountHistory,
+  customColumnsHistory,
+} from "@/lib/tables/historyColumns";
 import { authOptions } from "@/lib/authOptions";
 
 const fromUserAlias = alias(usersTable, "from_user");
 const toUserAlias = alias(usersTable, "to_user");
 
-export default async function DashboardPage() {
+export default async function AccountHistoryPage() {
   const session = await getServerSession(authOptions);
 
   const db = drizzle(process.env.DATABASE_URL!);
-  const [{ balance }] = await db
-    .select()
-    .from(userBalanceTable)
-    .where(eq(userBalanceTable.userId, Number(session?.user.id)));
-
-  const recentActivity = await db
+  const userActivity = await db
     .select({
       amount: userHistoryTable.amount,
       type: userHistoryTable.type,
@@ -51,18 +49,14 @@ export default async function DashboardPage() {
           eq(userHistoryTable.toUserId, Number(session?.user.id))
         )
       )
-    )
-    .limit(5);
+    );
 
   return (
     <section>
       <header className="mb-5 flex items-center gap-3">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-bold">Account history</h1>
       </header>
-      <div className="grid gap-8">
-        <DashBoardBalance accountBalance={balance} />
-        <DashBoardHistory accountHistory={recentActivity} />
-      </div>
+      <CustomDataTable columns={customColumnsHistory} data={userActivity} />
     </section>
   );
 }

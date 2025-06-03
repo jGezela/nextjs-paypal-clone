@@ -12,7 +12,12 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 
-import { Landmark, BanknoteArrowUp, BanknoteArrowDown, ScrollText } from "lucide-react";
+import {
+  Landmark,
+  BanknoteArrowUp,
+  BanknoteArrowDown,
+  ScrollText,
+} from "lucide-react";
 import SidebarUser from "./sidebarUser";
 
 const sidebarItems = [
@@ -27,22 +32,23 @@ const sidebarItems = [
     icon: BanknoteArrowDown,
   },
   {
-    title: "Request money",
-    url: "#",
-    icon: BanknoteArrowUp
-  },
-  {
     title: "Account history",
-    url: "#",
+    url: "/dashboard/account-history",
     icon: ScrollText,
   },
-]
- 
+];
+
 export function DashboardSidebar() {
   return (
     <Sidebar className="px-3 pb-3">
       <SidebarHeader>
-        <Image src="/images/paypal-logo.svg" width={140} height={40} alt="PayPal logo" className="mt-3 ml-2" />
+        <Image
+          src="/images/paypal-logo.svg"
+          width={140}
+          height={40}
+          alt="PayPal logo"
+          className="mt-3 ml-2"
+        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="mt-3">
@@ -66,5 +72,5 @@ export function DashboardSidebar() {
         <SidebarUser />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

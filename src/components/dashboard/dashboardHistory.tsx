@@ -8,7 +8,7 @@ export default function DashBoardHistory({
   accountHistory: AccountHistory[];
 }) {
   return (
-    <Card className="min-w-[450px] gap-3">
+    <Card className="gap-3">
       <CardHeader>
         <CardTitle>Recent Activity</CardTitle>
       </CardHeader>

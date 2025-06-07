@@ -45,34 +45,40 @@ export default function AccountPage() {
         <h1 className="text-3xl font-bold">Account</h1>
       </header>
       <div className="max-w-[512px]">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="destructive">Delete account</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are you absolutely sure?</DialogTitle>
-              <DialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and your balance will be lost!
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button
-                variant="destructive"
-                onClick={() => onDeleteBtnClick()}
-                disabled={isPending}
-              >
-                I'm sure
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-5">Change password</h2>
+          <AccountForm />
+        </div>
 
-        <AccountForm />
+        <div>
+          <h2 className="text-xl font-bold mb-5">Delete account</h2>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="btn btn--destructive">Delete account</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and your balance will be lost!
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button className="btn btn--outline">Cancel</Button>
+                </DialogClose>
+                <Button
+                  className="btn btn--destructive"
+                  onClick={() => onDeleteBtnClick()}
+                  disabled={isPending}
+                >
+                  I'm sure
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </section>
   );

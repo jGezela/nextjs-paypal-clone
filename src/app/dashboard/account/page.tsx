@@ -73,7 +73,7 @@ export default function AccountPage() {
                   onClick={() => onDeleteBtnClick()}
                   disabled={isPending}
                 >
-                  I'm sure
+                  I am sure
                 </Button>
               </DialogFooter>
             </DialogContent>

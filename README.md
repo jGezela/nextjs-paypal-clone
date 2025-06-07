@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+---
+# Next.js PayPal Clone
 
-## Getting Started
+This project is a simple PayPal clone, built using Next.js. It leverages PostgreSQL as the database and NextAuth.js for authentication.
+---
 
-First, run the development server:
+## Installation
+
+The following instructions will guide you through setting up and running the project locally.
+
+### 1\. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-address>
+cd nextjs-paypal-clone
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2\. PostgreSQL Database Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We recommend using **Docker Compose** to easily set up a PostgreSQL instance.
+Otherwise, you can use standalone PostgreSQL instance.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start the database using Docker Compose:
 
-## Learn More
+```bash
+docker-compose up -d
+```
 
-To learn more about Next.js, take a look at the following resources:
+This will spin up a PostgreSQL container running on port `5432`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3\. Environment Variables Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create a file named **`.env`** in the root directory of your project and add the following environment variables:
 
-## Deploy on Vercel
+```
+# .env.local
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+DATABASE_URL=postgres://<username>:<password>@localhost:5432/paypal_clone
+DATABASE_PASSWORD=<password>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+NEXTAUTH_URL=http://localhost:3000/
+NEXTAUTH_SECRET=<secure_key>
+```
+
+**Important:** Ensure that `DATABASE_PASSWORD` matches the password you set in your `docker-compose.yml` file. For `NEXTAUTH_SECRET`, it's highly recommended to generate your own strong key (you can use `openssl rand -base64 32` in a Linux/macOS terminal or an online generator).
+
+### 4\. Install Dependencies and Run the Project
+
+```bash
+npm install
+npm run dev # npm run start
+```
+
+The project will now be accessible at `http://localhost:3000`.
+
+---
+
+## Usage
+
+Once the application is successfully running, you can explore the PayPal clone. Feel free to register to test the application.

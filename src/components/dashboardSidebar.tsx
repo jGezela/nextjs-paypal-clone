@@ -12,12 +12,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 
-import {
-  Landmark,
-  BanknoteArrowUp,
-  BanknoteArrowDown,
-  ScrollText,
-} from "lucide-react";
+import { Landmark, BanknoteArrowDown, ScrollText } from "lucide-react";
 import SidebarUser from "./sidebarUser";
 
 const sidebarItems = [

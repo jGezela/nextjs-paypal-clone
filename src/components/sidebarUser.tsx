@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
 import {
@@ -11,9 +12,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 
-import { BellIcon, LogOutIcon, MoreVerticalIcon, UserCircleIcon, User } from "lucide-react";
+import {
+  LogOutIcon,
+  MoreVerticalIcon,
+  UserCircleIcon,
+  User,
+} from "lucide-react";
 
 export default function SidebarUser() {
   const { isMobile } = useSidebar();
@@ -31,7 +42,9 @@ export default function SidebarUser() {
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{session?.user?.name}</span>
+                <span className="truncate font-medium">
+                  {session?.user?.name}
+                </span>
                 <span className="truncate text-xs text-muted-foreground">
                   {session?.user?.email}
                 </span>
@@ -46,23 +59,24 @@ export default function SidebarUser() {
             sideOffset={4}
           >
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BellIcon />
-                Notifications
-              </DropdownMenuItem>
+              <Link href="/dashboard/account">
+                <DropdownMenuItem>
+                  <UserCircleIcon />
+                  Account
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive" onClick={() => signOut()}>
-              <LogOutIcon className="text-destructive"/>
+            <DropdownMenuItem
+              className="text-destructive"
+              onClick={() => signOut()}
+            >
+              <LogOutIcon className="text-destructive" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

@@ -4,12 +4,10 @@ import { getServerSession } from "next-auth";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { userHistoryTable, usersTable } from "@/db/schema";
 
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { CustomDataTable } from "@/components/customDataTable";
 
-import {
-  AccountHistory,
-  customColumnsHistory,
-} from "@/lib/tables/historyColumns";
+import { customColumnsHistory } from "@/lib/tables/historyColumns";
 import { authOptions } from "@/lib/authOptions";
 
 const fromUserAlias = alias(usersTable, "from_user");
@@ -54,6 +52,7 @@ export default async function AccountHistoryPage() {
   return (
     <section>
       <header className="mb-5 flex items-center gap-3">
+        <SidebarTrigger />
         <h1 className="text-3xl font-bold">Account history</h1>
       </header>
       <CustomDataTable columns={customColumnsHistory} data={userActivity} />

@@ -23,38 +23,18 @@ export const userBalanceTable = pgTable("user_balance", {
   userId: integer()
     .notNull()
     .unique()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   balance: decimal({ precision: 12, scale: 2 }).notNull().default("0.00"),
-});
-
-export const userCardsTable = pgTable("user_cards", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  userId: integer()
-    .notNull()
-    .references(() => usersTable.id),
-  cardNumber: varchar({ length: 20 }).notNull(),
-  expirationDate: date().notNull(),
-  cvv: varchar({ length: 3 }).notNull(),
-});
-
-export const userContactsTable = pgTable("user_contacts", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  userId: integer()
-    .notNull()
-    .references(() => usersTable.id),
-  contactId: integer()
-    .notNull()
-    .references(() => usersTable.id),
 });
 
 export const userHistoryTable = pgTable("user_history", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   fromUserId: integer()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   toUserId: integer()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   amount: decimal({ precision: 12, scale: 2 }).notNull(),
   note: varchar({ length: 255 }),
   type: varchar({ length: 10 }).notNull(),

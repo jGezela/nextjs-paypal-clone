@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { userBalanceTable, userHistoryTable, usersTable } from "@/db/schema";
 
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import DashBoardBalance from "@/components/dashboard/dashboardBalance";
 import DashBoardHistory from "@/components/dashboard/dashboardHistory";
 
@@ -57,6 +58,7 @@ export default async function DashboardPage() {
   return (
     <section>
       <header className="mb-5 flex items-center gap-3">
+        <SidebarTrigger />
         <h1 className="text-3xl font-bold">Dashboard</h1>
       </header>
       <div className="grid gap-8">
